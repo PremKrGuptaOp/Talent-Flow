@@ -27,7 +27,7 @@ A comprehensive, modern hiring platform built with React, TypeScript, and cuttin
 
 ---
 
-## �🎯 Requirements:
+## 🎯 Requirements:
 
 ### ✅ **Core Flows Implemented**
 
