@@ -11,7 +11,7 @@ A comprehensive, modern hiring platform built with React, TypeScript, and cuttin
 
 ## 🚀 Live Demo
 
-### **[View Live Application]([https://talentflow-entnt.vercel.app/](https://talentflow-hr-topaz.vercel.app/)**
+### **[View Live Application](https://talentflow-hr-topaz.vercel.app/)**
 
 ---
 
