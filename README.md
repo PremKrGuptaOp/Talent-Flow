@@ -2,16 +2,16 @@
 
 A comprehensive, modern hiring platform built with React, TypeScript, and cutting-edge web technologies. TalentFlow streamlines the entire recruitment process from job posting to candidate assessment and hiring decisions.
 
-## � Recent Updates
+##  Recent Updates
 
 - **Enhanced Kanban Board**: Improved drag-and-drop functionality with better touch and mouse support
 - **UI Refinements**: Removed duplicate headers and improved visual consistency
 - **Navigation Improvements**: Added dedicated sidebar navigation for Kanban board
 - **Performance Optimizations**: Improved drag-and-drop performance with optimized sensor configuration
 
-## �🚀 Live Demo
+## 🚀 Live Demo
 
-### **[View Live Application](https://talentflow-entnt.vercel.app/)**
+### **[View Live Application]([https://talentflow-entnt.vercel.app/](https://talentflow-hr-topaz.vercel.app/)**
 
 ---
 
