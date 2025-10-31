@@ -18,7 +18,6 @@ import type {
   DragOverEvent,
   DragStartEvent,
 } from "@dnd-kit/core";
-import { Users } from "lucide-react";
 import { useAppStore } from "../../../lib/store";
 import { KanbanColumn } from "./kanban-column";
 import { DragOverlayCard } from "./drag-overlay-card";
@@ -79,29 +78,18 @@ export const KanbanBoard = ({
   onCandidateClick,
 }: KanbanBoardProps) => {
   const { updateCandidate } = useAppStore();
-  const [activeCandidate, setActiveCandidate] = useState<Candidate | null>(
-    null
-  );
+  const [activeCandidate, setActiveCandidate] = useState<Candidate | null>(null);
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
-      // Lower the activation distance to make it easier to start dragging
-      activationConstraint: {
-        distance: 5,
-      },
+      activationConstraint: { distance: 5 },
     }),
     useSensor(TouchSensor, {
-      // Lower the delay to make it more responsive on touch devices
-      activationConstraint: {
-        delay: 100,
-        tolerance: 5,
-      },
+      activationConstraint: { delay: 100, tolerance: 5 },
     }),
     useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
+      activationConstraint: { distance: 8 },
     })
   );
 
@@ -116,7 +104,7 @@ export const KanbanBoard = ({
     return grouped;
   }, [candidates]);
 
-  // Get all candidate IDs for the SortableContext
+  // Get all candidate IDs for SortableContext
   const candidateIds = useMemo(
     () => candidates.map((candidate) => candidate.id),
     [candidates]
@@ -126,33 +114,21 @@ export const KanbanBoard = ({
     const { active } = event;
     const candidate = candidates.find((c) => c.id === active.id);
     if (candidate) {
-      // Set the active candidate for the drag overlay
       setActiveCandidate(candidate);
-      // Add a class to the body to prevent scrolling during drag
-      document.body.classList.add('dragging');
+      document.body.classList.add("dragging");
     }
   };
 
   const handleDragOver = (event: DragOverEvent) => {
-    // Improved visual feedback during drag
-    const { active, over } = event;
-    
-    if (active && over) {
-      const activeId = active.id as string;
-      const overId = over.id as string;
-      
-      // We could implement more sophisticated visual feedback here
-      // For now, we'll just ensure the event is properly handled
-      console.log("Dragging over:", overId);
-    }
+    const { over } = event;
+    if (over) console.log("Dragging over:", over.id);
   };
 
   const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
-    
-    // Reset state and remove body class
+
     setActiveCandidate(null);
-    document.body.classList.remove('dragging');
+    document.body.classList.remove("dragging");
 
     if (!over || !active) {
       console.log("No valid drop target found");
@@ -162,29 +138,24 @@ export const KanbanBoard = ({
     const candidateId = active.id as string;
     const newStage = over.id as Candidate["stage"];
 
-    // Find the candidate being dragged
     const candidate = candidates.find((c) => c.id === candidateId);
     if (!candidate) {
       console.error("Candidate not found:", candidateId);
       return;
     }
 
-    // Skip if the stage hasn't changed
     if (candidate.stage === newStage) {
       console.log("Stage unchanged:", candidate.stage);
       return;
     }
 
-    // Set updating state to show loading indicator
     setIsUpdating(candidateId);
 
     try {
-      // Update the candidate's stage
       await updateCandidate(candidateId, { stage: newStage });
       console.log("Successfully updated candidate stage");
     } catch (error) {
       console.error("Failed to update candidate stage:", error);
-      // The store's optimistic update will handle rollback
     } finally {
       setIsUpdating(null);
     }
@@ -199,10 +170,7 @@ export const KanbanBoard = ({
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <SortableContext
-          items={candidateIds}
-          strategy={verticalListSortingStrategy}
-        >
+        <SortableContext items={candidateIds} strategy={verticalListSortingStrategy}>
           <div className="flex-1 overflow-x-auto p-6">
             <div className="flex gap-6 min-w-max pb-4">
               {HIRING_STAGES.map((stage) => (
